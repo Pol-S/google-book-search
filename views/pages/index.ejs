@@ -1,0 +1,48 @@
+
+<html>
+  <head>
+    <title>Book Search</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+
+    Book Search: <input id="bookquery">
+    <button id="search_button">Get Results</button>
+
+    <div id="results">
+
+    <script id="myScript"></script>
+
+    <script>
+      function form_query() {
+        var booksearch = document.getElementById('bookquery').value;
+        var start="https://www.googleapis.com/books/v1/volumes?q="        
+        var ender="&callback=printResults"
+        document.getElementById('myScript').src = start+booksearch+ender;    
+      }
+
+    document.getElementById('search_button').addEventListener('click', form_query);
+    </script>
+
+    
+    <script>
+        function printResults(response) {
+        for (var i = 0; i < response.items.length; i++) {
+          var item = response.items[i];
+          document.getElementById("results").innerHTML += 
+              "<br>" + "<a href = " + item.volumeInfo.infoLink + ">"+ item.volumeInfo.title + "</a>" +
+              "<br>" + item.volumeInfo.authors + 
+              "<br>" + item.volumeInfo.publisher + 
+              "<br>" + "<img src = " + item.volumeInfo.imageLinks.thumbnail + ">" + "<br>";
+        }
+      }
+    </script>
+
+
+
+<script>       
+  
+</script>
+
+  </body>
+</html>
