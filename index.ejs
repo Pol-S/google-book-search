@@ -1,0 +1,49 @@
+
+<html>
+  <head>
+    <title>Google Book API Search</title>
+    <style type="text/css"></style>
+  </head>
+  <body>
+
+    Please input a book title/author/publisher:<br>
+    <input id="bookquery"><br>
+    <button id="search_button"; onclick = "assemble_query(); return false;">Get Results</button>
+    <button id="reload_button"; onclick = location.reload();>Try a new search?</button>
+
+    <div id="results">
+
+    <script id="myScript"></script>
+
+    <script>
+      function assemble_query() {
+        var booksearch = document.getElementById('bookquery').value;
+        var start="https://www.googleapis.com/books/v1/volumes?q=";        
+        var ender="&callback=printResults";
+        if (booksearch == "") {
+          alert("Please input a title/author/publishing house.");
+        }
+        else {
+          booksearch = booksearch.replace(/\s/g, '+');
+          document.getElementById('myScript').src = start+booksearch+ender;
+        }            
+      }
+    </script>
+    
+    <script>
+        function printResults(response) {
+        for (var i = 0; i < response.items.length; i++) {
+          var item = response.items[i];
+          document.getElementById("results").innerHTML += 
+              "<br>" + "Title: " + "<a href = " + item.volumeInfo.infoLink + ">"+ item.volumeInfo.title + "</a>" +
+              "<br>" + "Authors: " + item.volumeInfo.authors + 
+              "<br>" + "Publisher: " + item.volumeInfo.publisher + 
+              "<br>" + "<img src = " + item.volumeInfo.imageLinks.thumbnail + ">" + "<br>";
+        }
+      }
+    </script>
+
+
+
+  </body>
+</html>
