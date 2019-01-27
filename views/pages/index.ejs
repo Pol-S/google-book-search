@@ -7,14 +7,25 @@
   <body>
 
     Please input a book title/author/publisher:<br>
-    <input id="bookquery"><br>
-    <button id="search_button"; onclick = "assemble_query(); return false;">Get Results</button>
-    <button id="reload_button"; onclick = location.reload();>Try a new search?</button>
+    <div id="search_bar_area">
+      <input id="bookquery"><br>
+      <button id="search_button"; onclick = "assemble_query(); button_swap(); return false;">Get Results</button>
+      <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
+    </div>
+    <div id="results"></div>
 
-    <div id="results">
+    <script>
+    function button_swap() {
+      var reload = document.getElementById("reload_button");
+      var search = document.getElementById("search_button");
+      document.getElementById("reload_button").style.visibility = 'visible';
+      document.getElementById("search_button").style.visibility = 'hidden';
+      search_bar_area.replaceChild(reload, search);
+      }
+    </script>
 
     <script id="myScript"></script>
-
+    
     <script>
       function assemble_query() {
         var booksearch = document.getElementById('bookquery').value;
