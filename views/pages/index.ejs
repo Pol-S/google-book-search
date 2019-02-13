@@ -1,4 +1,3 @@
-
 <html>
   <head>
     <title>Google Book API Search</title>
@@ -15,46 +14,56 @@
     <div id="results"></div>
 
     <script>
-    function button_swap() {
-      var reload = document.getElementById("reload_button");
-      var search = document.getElementById("search_button");
-      document.getElementById("reload_button").style.visibility = 'visible';
-      document.getElementById("search_button").style.visibility = 'hidden';
-      search_bar_area.replaceChild(reload, search);
-      }
-    </script>
-
-    <script id="myScript"></script>
+      function button_swap() {
+        var reload = document.getElementById("reload_button");
+        var search = document.getElementById("search_button");
+        document.getElementById("reload_button").style.visibility = 'visible';
+        document.getElementById("search_button").style.visibility = 'hidden';
+        search_bar_area.replaceChild(reload, search);
+        }   
     
-    <script>
       function assemble_query() {
         var booksearch = document.getElementById('bookquery').value;
         var start="https://www.googleapis.com/books/v1/volumes?q=";        
-        var ender="&callback=printResults";
-        if (booksearch == "") {
+        if (booksearch === '' ) {
           alert("Please input a title/author/publishing house.");
         }
         else {
           booksearch = booksearch.replace(/\s/g, '+');
-          document.getElementById('myScript').src = start+booksearch+ender;
+          call_api(booksearch)
         }            
       }
-    </script>
-    
-    <script>
-        function printResults(response) {
-        for (var i = 0; i < response.items.length; i++) {
-          var item = response.items[i];
-          document.getElementById("results").innerHTML += 
-              "<br>" + "Title: " + "<a href = " + item.volumeInfo.infoLink + ">"+ item.volumeInfo.title + "</a>" +
-              "<br>" + "Authors: " + item.volumeInfo.authors + 
-              "<br>" + "Publisher: " + item.volumeInfo.publisher + 
-              "<br>" + "<img src = " + item.volumeInfo.imageLinks.thumbnail + ">" + "<br>";
-        }
+
+      function call_api(booksearch) {
+        fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(JSON.stringify(myJson));
+            printResults(myJson);
+          })
+          .catch(error => {
+            console.log('Connection Error');
+            printError();
+          });
       }
+
+      function printError() {
+        document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
+      }
+
+      function printResults(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        document.getElementById("results").innerHTML += 
+            "<br>" + "<a href = " + item.volumeInfo.infoLink + ">"+ item.volumeInfo.title + "</a>" +
+            "<br>" + item.volumeInfo.authors + 
+            "<br>" + item.volumeInfo.publisher + 
+            "<br>" + "<img src = " + item.volumeInfo.imageLinks.thumbnail + ">" + "<br>";
+      }
+    }
     </script>
-
-
 
   </body>
 </html>
