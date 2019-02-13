@@ -27,7 +27,7 @@
     
       function check_query() {
         var booksearch = document.getElementById('bookquery').value;     
-        if (/\S/.test(booksearch)) {
+        if (booksearch === '' ) {
           alert("Please input a title/author/publishing house.");
         }
         else {
