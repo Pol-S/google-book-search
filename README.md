@@ -17,7 +17,7 @@ Install Jest using yarn:
 ```bash
 yarn add --dev jest
 ```
-#Git
+# Git
 
 Install Git from here: https://git-scm.com/
 
