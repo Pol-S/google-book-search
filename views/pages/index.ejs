@@ -26,6 +26,8 @@
     </div>
     <div id="results"></div>
 
+    <script type="text/javascript" src="search_interface.js"></script>
+
     <script>
       function button_swap() {
         var reload = document.getElementById("reload_button");
@@ -35,50 +37,8 @@
         top_area.replaceChild(reload, search);
         }   
 
-      function capture_search_term() {
-        var booksearch = document.getElementById('bookquery').value;    
-        check_query(booksearch) 
-      }
-        
-      function check_query(booksearch) {        
-        if (booksearch.trim === '' ) {
-          alert("Please input a title/author/publishing house.");
-        }
-        else {
-          booksearch = booksearch.replace(/\s/g, '+');
-          call_api(booksearch)
-        }            
-      }
-
-      function call_api(booksearch) {
-        fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            bookInfo(myJson);
-          })
-          .catch(error => {
-            console.log('Connection Error');
-            printError();
-          });
-      }
-
       function printError() {
         document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
-      }
-
-      function bookInfo(response) {
-      for (var i = 0; i < response.items.length; i++) {
-        var item = response.items[i];
-        var book_hash = {}
-        book_hash['info'] = item.volumeInfo.infoLink
-        book_hash['title'] = item.volumeInfo.title
-        book_hash['authors'] = item.volumeInfo.authors
-        book_hash['publisher'] = item.volumeInfo.publisher
-        book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
-        printResults(book_hash)
       }
 
       function printResults(book_hash) {
@@ -88,9 +48,6 @@
           "<br>" + book_hash['publisher'] + 
           "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
       }
-
-
-
     }
     </script>
 
