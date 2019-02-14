@@ -1,3 +1,13 @@
+<!-- -The console returns errors if the user enters a query with just spaces.
+
+ - How would your app handle situations where the Google API was down or unusually slow to respond?
+
+ -There would be additional value if you tested error cases, not just the "happy path".
+
+- The README would not provide any instructions on what the setup requirements are, how to install the app on their local development environment, or how to run the tests.
+
+- If the code needed to be adapted to support a mobile app UI or a command-line UI, how could you structure your code base so that it could be reusable in those contexts? -->
+
 <html>
   <head>
     <title>Google Book API Search</title>
@@ -10,7 +20,7 @@
       <div id="search_bar_area">
         Please input a book title/author/publisher:<br>
         <input id="bookquery"><br>
-        <button id="search_button"; onclick = "check_query(); button_swap(); return false;">Get Results</button>
+        <button id="search_button"; onclick = "capture_search_term(); button_swap(); return false;">Get Results</button>
       </div>
       <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
     </div>
@@ -24,10 +34,14 @@
         document.getElementById("search_button").style.visibility = 'hidden';
         top_area.replaceChild(reload, search);
         }   
-    
-      function check_query() {
-        var booksearch = document.getElementById('bookquery').value;     
-        if (booksearch === '' ) {
+
+      function capture_search_term() {
+        var booksearch = document.getElementById('bookquery').value;    
+        check_query(booksearch) 
+      }
+        
+      function check_query(booksearch) {        
+        if (booksearch.trim === '' ) {
           alert("Please input a title/author/publishing house.");
         }
         else {
@@ -43,7 +57,7 @@
           })
           .then(function(myJson) {
             console.log(JSON.stringify(myJson));
-            printResults(myJson);
+            bookInfo(myJson);
           })
           .catch(error => {
             console.log('Connection Error');
@@ -55,20 +69,28 @@
         document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
       }
 
-      function printResults(response) {
+      function bookInfo(response) {
       for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
-        var info = item.volumeInfo.infoLink
-        var title = item.volumeInfo.title
-        var authors = item.volumeInfo.authors
-        var publisher = item.volumeInfo.publisher
-        var cover = item.volumeInfo.imageLinks.thumbnail
-        document.getElementById("results").innerHTML += 
-            "<br>" + "<a href = " + info + ">"+ title + "</a>" +
-            "<br>" + authors + 
-            "<br>" + publisher + 
-            "<br>" + "<img src = " + cover + ">" + "<br>";
+        var book_hash = {}
+        book_hash['info'] = item.volumeInfo.infoLink
+        book_hash['title'] = item.volumeInfo.title
+        book_hash['authors'] = item.volumeInfo.authors
+        book_hash['publisher'] = item.volumeInfo.publisher
+        book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
+        printResults(book_hash)
       }
+
+      function printResults(book_hash) {
+         document.getElementById("results").innerHTML += 
+          "<br>" + "<a href = " + book_hash['info'] + ">"+ book_hash['title'] + "</a>" +
+          "<br>" + book_hash['authors'] + 
+          "<br>" + book_hash['publisher'] + 
+          "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
+      }
+
+
+
     }
     </script>
 
