@@ -1,6 +1,73 @@
-A simple app to search the Google Books API with a user query.
+# Google Book Search API
 
-Originally I started off with a javascript in html page before adapting it for node.js.
+## Installation
 
-I actually started with two html files. One to test grabbing user inputs and outputting them on screen and another one to test with assembling the api query url. In that way I sort of worked from both ends of the problem toward the middle as it were.
+#Node.Js
 
+Install Node.js from here: https://nodejs.org/en/
+
+#Yarn Package Manager
+
+Install Yarn from here: https://yarnpkg.com/lang/en/docs/install/#windows-stable
+
+#Jest
+
+Install Jest using yarn:
+
+```bash
+yarn add --dev jest
+```
+#Git
+
+Install Git from here: https://git-scm.com/
+
+#Heroku Command Line Interface
+
+Install Heroku from here: https://devcenter.heroku.com/articles/heroku-cli
+
+## Usage
+
+#Cloning the existing app
+
+```bash
+git clone https://github.com/Pol-S/google-book-search
+```
+
+#Create an app on Heroku
+
+This will be needed to prepare Heroku to receive the source code.
+
+```bash
+heroku create
+```
+
+#To deploy the code.
+
+```bash
+git push heroku master
+```
+
+#To run the app while it is hosted by Heroku
+
+```bash
+heroku open
+```
+
+#To run the app from your local directory
+
+```bash
+npm install
+heroku local web
+```
+Open http://localhost:5000 with your web browser.
+
+Ctrl + C in Heroku CLI to exit
+
+#To push local changes to the repository
+
+```bash
+git add .
+git commit
+git push heroku master
+heroku open
+```
