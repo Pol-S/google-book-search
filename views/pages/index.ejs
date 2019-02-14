@@ -7,17 +7,21 @@
       <title>Google Book API Search</title>
       <style type="text/css"></style>
       <meta charset="utf-8"/>
-     </head>
+    </head>
     <body>
   
       <div id="top_area">
+
         <div id="search_bar_area">
           Please input a book title/author/publisher:<br>
           <input id="bookquery"><br>
           <button id="search_button"; onclick = "captureSearchTerm(); return false;">Get Results</button>
         </div>
+
         <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
+        
       </div>
+
       <div id="results"></div>
    
       <script>
