@@ -21,7 +21,7 @@
       <div id="search_bar_area">
         Please input a book title/author/publisher:<br>
         <input id="bookquery"><br>
-        <button id="search_button"; onclick = "capture_search_term(); button_swap(); return false;">Get Results</button>
+        <button id="search_button"; onclick = "captureSearchTerm(); buttonSwap(); return false;">Get Results</button>
       </div>
       <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
     </div>
@@ -29,12 +29,12 @@
 
  
     <script>
-      function capture_search_term() {
+      function captureSearchTerm() {
         var booksearch = document.getElementById('bookquery').value;    
         check_query(booksearch) 
       }
 
-      function button_swap() {
+      function buttonSwap() {
         var reload = document.getElementById("reload_button");
         var search = document.getElementById("search_bar_area");
         document.getElementById("reload_button").style.visibility = 'visible';
@@ -54,7 +54,7 @@
           "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
       } 
         
-      function check_query(booksearch) {        
+      function checkQuery(booksearch) {        
         if (booksearch.trim === '' ) {
           alert("Please input a title/author/publishing house.");
         }
@@ -64,7 +64,7 @@
         }            
       }
 
-      function call_api(booksearch) {
+      function callApi(booksearch) {
         fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
           .then(function(response) {
             return response.json();
