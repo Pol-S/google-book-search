@@ -2,15 +2,15 @@
 
 ## Installation
 
-#Node.Js
+### Node.Js
 
 Install Node.js from here: https://nodejs.org/en/
 
-#Yarn Package Manager
+### Yarn Package Manager
 
 Install Yarn from here: https://yarnpkg.com/lang/en/docs/install/#windows-stable
 
-#Jest
+### Jest
 
 Install Jest using yarn:
 
@@ -21,19 +21,19 @@ yarn add --dev jest
 
 Install Git from here: https://git-scm.com/
 
-#Heroku Command Line Interface
+# Heroku Command Line Interface
 
 Install Heroku from here: https://devcenter.heroku.com/articles/heroku-cli
 
 ## Usage
 
-#Cloning the existing app
+### Cloning the existing app
 
 ```bash
 git clone https://github.com/Pol-S/google-book-search
 ```
 
-#Create an app on Heroku
+### Create an app on Heroku
 
 This will be needed to prepare Heroku to receive the source code.
 
@@ -41,19 +41,19 @@ This will be needed to prepare Heroku to receive the source code.
 heroku create
 ```
 
-#To deploy the code.
+### To deploy the code.
 
 ```bash
 git push heroku master
 ```
 
-#To run the app while it is hosted by Heroku
+### To run the app while it is hosted by Heroku
 
 ```bash
 heroku open
 ```
 
-#To run the app from your local directory
+### To run the app from your local directory
 
 ```bash
 npm install
@@ -63,7 +63,7 @@ Open http://localhost:5000 with your web browser.
 
 Ctrl + C in Heroku CLI to exit
 
-#To push local changes to the repository
+### To push local changes to the repository
 
 ```bash
 git add .
