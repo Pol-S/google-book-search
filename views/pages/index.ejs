@@ -1,12 +1,6 @@
-<!-- -The console returns errors if the user enters a query with just spaces.
-
- - How would your app handle situations where the Google API was down or unusually slow to respond?
-
+<!--
  -There would be additional value if you tested error cases, not just the "happy path".
-
-- The README would not provide any instructions on what the setup requirements are, how to install the app on their local development environment, or how to run the tests.
-
-- If the code needed to be adapted to support a mobile app UI or a command-line UI, how could you structure your code base so that it could be reusable in those contexts? -->
+ -->
 
 <html>
   <head>
@@ -14,8 +8,6 @@
     <style type="text/css"></style>
    </head>
   <body>
-
-
 
     <div id="top_area">
       <div id="search_bar_area">
@@ -26,12 +18,11 @@
       <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
     </div>
     <div id="results"></div>
-
  
     <script>
       function captureSearchTerm() {
         var booksearch = document.getElementById('bookquery').value;    
-        check_query(booksearch) 
+        checkQuery(booksearch) 
       }
 
       function buttonSwap() {
@@ -60,7 +51,7 @@
         }
         else {
           booksearch = booksearch.replace(/\s/g, '+');
-          call_api(booksearch)
+          callApi(booksearch)
         }            
       }
 
@@ -93,5 +84,5 @@
     }
     </script>
 
-  </body>
+</body>
 </html>
