@@ -1,8 +1,5 @@
 
-      function capture_search_term() {
-        var booksearch = document.getElementById('bookquery').value;    
-        check_query(booksearch) 
-      }
+
         
       function check_query(booksearch) {        
         if (booksearch.trim === '' ) {

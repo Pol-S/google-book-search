@@ -30,6 +30,11 @@
 
  
     <script>
+      function capture_search_term() {
+        var booksearch = document.getElementById('bookquery').value;    
+        check_query(booksearch) 
+      }
+
       function button_swap() {
         var reload = document.getElementById("reload_button");
         var search = document.getElementById("search_bar_area");
