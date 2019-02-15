@@ -77,19 +77,18 @@
         }
   
         function bookInfo(response) {
-        for (var i = 0; i < response.items.length; i++) {
-          var item = response.items[i];
-          var book_hash = {}
-          book_hash['info'] = item.volumeInfo.infoLink
-          book_hash['title'] = item.volumeInfo.title
-          book_hash['authors'] = item.volumeInfo.authors
-          book_hash['publisher'] = item.volumeInfo.publisher
-          book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
-          printResults(book_hash)
+          for (var i = 0; i < response.items.length; i++) {
+            var item = response.items[i];
+            var book_hash = {}
+            book_hash['info'] = item.volumeInfo.infoLink
+            book_hash['title'] = item.volumeInfo.title
+            book_hash['authors'] = item.volumeInfo.authors
+            book_hash['publisher'] = item.volumeInfo.publisher
+            book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
+            printResults(book_hash)
+          }
         }
-      }
           
-      </script>
-      <script type="text/javascript" src="./views/pages/interface.js"></script>
+      </script>      
   </body>
   </html>
