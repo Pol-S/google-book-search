@@ -9,10 +9,16 @@ test('that a query of all blank spaces throws an alert', () => {
 });
 
 describe('checkQuery', () => {
-  test('query is formatted correctly, results will be processed', () => {
+  test('query is formatted correctly, a call will be made', () => {
     const callApi = jest.fn();
-    checkQuery(callApi(), 'test');
-    expect(callApi()).toBeCalled();  
+    checkQuery(callApi, 'test');
+    expect(callApi).toHaveBeenCalled();  
+  });
+
+  test('query is formatted incorrectly, a call will not be made', () => {
+    const callApi = jest.fn();
+    checkQuery(callApi, ' ');
+    expect(callApi).not.toHaveBeenCalled();  
   });
 });
 
