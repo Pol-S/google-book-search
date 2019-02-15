@@ -1,28 +1,22 @@
-const { spawn } = require('child_process');
-const request = require('request');
-const test = require('tape');
 
-// Start the app
-const env = Object.assign({}, process.env, {PORT: 5000});
-const child = spawn('node', ['index.js'], {env});
+const checkQuery = require('./views/pages/interface');
+const callApi = require('./views/pages/interface');
+const bookInfo = require('./views/pages/interface');
 
-test('responds to requests', (t) => {
-  t.plan(4);
 
-  // Wait until the server is ready
-  child.stdout.on('data', _ => {
-    // Make a request to our app
-    request('http://127.0.0.1:5000', (error, response, body) => {
-      // stop the server
-      child.kill();
-
-      // No error
-      t.false(error);
-      // Successful response
-      t.equal(response.statusCode, 200);
-      // Assert content checks
-      t.notEqual(body.indexOf("<title>Google Book API search</title>"), -1);
-      t.notEqual(body.indexOf("Lightweight Javascript Booksearch"), -1);
-    });
-  });
+test('that a query of all blank spaces throws an alert', () => {
+  expect(checkQuery(' ')).toBeTruthy();
 });
+
+test('that a query with blank spaces replaces them with + signs', () => {
+  expect(checkQuery('august winter')).toBeTruthy();
+});
+
+
+// test('if a query fails to reach the API, results will be displayed', () => {
+//  expect.asssertions(1);
+//  return callApi().catch(error => {console.log('Connection Error');printError();});
+// });
+
+
+
