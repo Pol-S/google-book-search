@@ -1,0 +1,55 @@
+
+ <html>
+    <head>
+      <title>Google Book API Search</title>
+      <style type="text/css"></style>
+      
+      <meta charset="utf-8"/>
+    </head>
+    <body>
+  
+      <div id="top_area">
+
+        <div id="search_bar_area">
+          Please input a book title/author/publisher:<br>
+          <input id="bookquery"><br>
+          <button id="search_button"; onclick = "captureSearchTerm(); return false;">Get Results</button>
+        </div>
+
+        <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
+        
+      </div>
+
+      <div id="results"></div>
+
+      
+      <script>
+        function captureSearchTerm() {
+          var booksearch = document.getElementById('bookquery').value;    
+          checkQuery(booksearch) 
+        }
+  
+        function buttonSwap() {
+          var reload = document.getElementById("reload_button");
+          var search = document.getElementById("search_bar_area");
+          document.getElementById("reload_button").style.visibility = 'visible';
+          document.getElementById("search_button").style.visibility = 'hidden';
+          top_area.replaceChild(reload, search);
+        }   
+  
+        function printError() {
+          document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
+        }
+  
+        function printResults(book_hash) {
+           document.getElementById("results").innerHTML += 
+            "<br>" + "<a href = " + book_hash['info'] + ">"+ book_hash['title'] + "</a>" +
+            "<br>" + book_hash['authors'] + 
+            "<br>" + book_hash['publisher'] + 
+            "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
+        }         
+          
+      </script>
+      <script type="text/javascript" src="./interface.js"></script>
+  </body>
+  </html>
