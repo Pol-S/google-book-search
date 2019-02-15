@@ -5,10 +5,12 @@
           }
           else {
             booksearch = booksearch.replace(/\s/g, '+');
-            callApi(booksearch)
+            callApi(booksearch) ` `
             buttonSwap()
           }            
         }
+
+        module.exports = checkQuery
   
         function callApi(booksearch) {
           fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
@@ -24,6 +26,8 @@
               printError();
             });
         }
+
+        module.exports = callApi
   
         function bookInfo(response) {
         for (var i = 0; i < response.items.length; i++) {
@@ -37,6 +41,8 @@
           printResults(book_hash)
         }
       }
+
+      module.exports = bookInfo
 
       function sum(a, b) {
         return a + b;
