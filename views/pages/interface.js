@@ -4,9 +4,9 @@
             alert("No character inputted. Please input a title/author/publishing house.");
           }
           else {
-            booksearch = booksearch.replace(/\s/g, '+');
-            callApi(booksearch) ` `
+            booksearch = booksearch.replace(/\s+/g, '+');
             buttonSwap()
+            callApi(booksearch)             
           }            
         }
 

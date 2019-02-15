@@ -48,7 +48,7 @@
           alert("No character inputted. Please input a title/author/publishing house.");
         }
         else {
-          booksearch = booksearch.replace(/\s/g, '+');
+          booksearch = booksearch.replace(/\s+/g, '+');
           callApi(booksearch)
           buttonSwap()
         }            
