@@ -8,15 +8,13 @@ test('that a query of all blank spaces throws an alert', () => {
   expect(checkQuery(' ')).toBeTruthy();
 });
 
-test('that a query with blank spaces replaces them with + signs', () => {
-  expect(checkQuery('august winter')).toBeTruthy();
+describe('checkQuery', () => {
+  test('query is formatted correctly, results will be processed', () => {
+    const callApi = jest.fn();
+    checkQuery(callApi(), 'test');
+    expect(callApi()).toBeCalled();  
+  });
 });
-
-
-// test('if a query fails to reach the API, results will be displayed', () => {
-//  expect.asssertions(1);
-//  return callApi().catch(error => {console.log('Connection Error');printError();});
-// });
 
 
 
