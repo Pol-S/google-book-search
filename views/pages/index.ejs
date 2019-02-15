@@ -1,94 +1,87 @@
 
  <html>
-    <head>
-      <title>Google Book API Search</title>
-      <style type="text/css"></style>
-      
-      <meta charset="utf-8"/>
-    </head>
-    <body>
-  
-      <div id="top_area">
+  <head>
+    <title>Google Book API Search</title>
+    <style type="text/css"></style>
+    <meta charset="utf-8"/>
+   </head>
+  <body>
 
-        <div id="search_bar_area">
-          Please input a book title/author/publisher:<br>
-          <input id="bookquery"><br>
-          <button id="search_button"; onclick = "captureSearchTerm(); return false;">Get Results</button>
-        </div>
-
-        <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
-        
+    <div id="top_area">
+      <div id="search_bar_area">
+        Please input a book title/author/publisher:<br>
+        <input id="bookquery"><br>
+        <button id="search_button"; onclick = "captureSearchTerm(); return false;">Get Results</button>
       </div>
+      <button id="reload_button"; style="visibility:hidden"; onclick = location.reload();>Try a new search?</button>
+    </div>
+    <div id="results"></div>
+ 
+    <script>
+      function captureSearchTerm() {
+        var booksearch = document.getElementById('bookquery').value;    
+        checkQuery(booksearch) 
+      }
 
-      <div id="results"></div>
-
-      
-      <script>
-        function captureSearchTerm() {
-          var booksearch = document.getElementById('bookquery').value;    
-          checkQuery(booksearch) 
-        }
-  
-        function buttonSwap() {
-          var reload = document.getElementById("reload_button");
-          var search = document.getElementById("search_bar_area");
-          document.getElementById("reload_button").style.visibility = 'visible';
-          document.getElementById("search_button").style.visibility = 'hidden';
-          top_area.replaceChild(reload, search);
+      function buttonSwap() {
+        var reload = document.getElementById("reload_button");
+        var search = document.getElementById("search_bar_area");
+        document.getElementById("reload_button").style.visibility = 'visible';
+        document.getElementById("search_button").style.visibility = 'hidden';
+        top_area.replaceChild(reload, search);
         }   
-  
-        function printError() {
-          document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
-        }
-  
-        function printResults(book_hash) {
-           document.getElementById("results").innerHTML += 
-            "<br>" + "<a href = " + book_hash['info'] + ">"+ book_hash['title'] + "</a>" +
-            "<br>" + book_hash['authors'] + 
-            "<br>" + book_hash['publisher'] + 
-            "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
-        }         
 
-          
-        function checkQuery(booksearch) {        
-          if (booksearch.trim() === '' ) {
-            alert("No character inputted. Please input a title/author/publishing house.");
-          }
-          else {
-            booksearch = booksearch.replace(/\s/g, '+');
-            callApi(booksearch) 
-            buttonSwap()
-          }            
-        }
+      function printError() {
+        document.getElementById("results").innerHTML += "Sorry, there seems to be an error."
+      }
+
+      function printResults(book_hash) {
+         document.getElementById("results").innerHTML += 
+          "<br>" + "<a href = " + book_hash['info'] + ">"+ book_hash['title'] + "</a>" +
+          "<br>" + book_hash['authors'] + 
+          "<br>" + book_hash['publisher'] + 
+          "<br>" + "<img src = " + book_hash['cover'] + ">" + "<br>";
+      } 
         
-        function callApi(booksearch) {
-          fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(myJson) {
-              console.log(JSON.stringify(myJson));
-              bookInfo(myJson);
-            })
-            .catch(error => {
-              console.log('Connection Error');
-              printError();
-            });
+      function checkQuery(booksearch) {        
+        if (booksearch.trim() === '' ) {
+          alert("No character inputted. Please input a title/author/publishing house.");
         }
-  
-        function bookInfo(response) {
-          for (var i = 0; i < response.items.length; i++) {
-            var item = response.items[i];
-            var book_hash = {}
-            book_hash['info'] = item.volumeInfo.infoLink
-            book_hash['title'] = item.volumeInfo.title
-            book_hash['authors'] = item.volumeInfo.authors
-            book_hash['publisher'] = item.volumeInfo.publisher
-            book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
-            printResults(book_hash)
-          }
-        }
-          
-      </script>      
-  </body>
-  </html>
+        else {
+          booksearch = booksearch.replace(/\s/g, '+');
+          callApi(booksearch)
+          buttonSwap()
+        }            
+      }
+
+      function callApi(booksearch) {
+        fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(JSON.stringify(myJson));
+            bookInfo(myJson);
+          })
+          .catch(error => {
+            console.log('Connection Error');
+            printError();
+          });
+      }
+
+      function bookInfo(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        var book_hash = {}
+        book_hash['info'] = item.volumeInfo.infoLink
+        book_hash['title'] = item.volumeInfo.title
+        book_hash['authors'] = item.volumeInfo.authors
+        book_hash['publisher'] = item.volumeInfo.publisher
+        book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
+        printResults(book_hash)
+      }
+    }
+    </script>
+
+</body>
+</html>
