@@ -55,7 +55,6 @@
 
       function callApi(booksearch, timelimit){
         let didTimeOut = false;
-
         new Promise(function(resolve, reject) {
             const timeout = setTimeout(function() {
                 didTimeOut = true;
@@ -93,20 +92,20 @@
         });
       }
 
-      function callApi(booksearch) {
-        fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            bookInfo(myJson);
-          })
-          .catch(error => {
-            console.log('Connection Error');
-            printError();
-          });
-      }
+      // function callApi(booksearch) {
+      //   fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
+      //     .then(function(response) {
+      //       return response.json();
+      //     })
+      //     .then(function(myJson) {
+      //       console.log(JSON.stringify(myJson));
+      //       bookInfo(myJson);
+      //     })
+      //     .catch(error => {
+      //       console.log('Connection Error');
+      //       printError();
+      //     });
+      // }
 
       function bookInfo(response) {
       for (var i = 0; i < response.items.length; i++) {
