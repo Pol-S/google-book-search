@@ -1,5 +1,5 @@
 {
-  "name": "Google Book API",
+  "name": "google-book-api",
   "version": "0.3.0",
   "description": "A sample Google Book API search",
   "engines": {
