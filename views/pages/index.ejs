@@ -52,20 +52,42 @@
           buttonSwap()
         }            
       }
+      module.exports = checkQuery
 
-      function callApi(booksearch) {
-        fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(myJson) {
+      function callApi(booksearch){
+        var tookTooLong = false;
+        const timeLimit = 1000;
+
+
+        new Promise(function(resolve, reject) {
+            const timeout = setTimeout(function() {
+                tookTooLong = true;
+                reject(new Error('fetch timed out'));
+            }, timeLimit);
+            
+            fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
+            .then(function(response) {
+              if(!tookTooLong) {
+                console.log('fetch worked')
+                resolve(response);
+              }
+            })
+            .catch(function(err) {
+              console.log('fetch failed');                
+            });
+        })
+
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
             console.log(JSON.stringify(myJson));
             bookInfo(myJson);
-          })
-          .catch(error => {
-            console.log('Connection Error');
+        })
+        .catch(function(err) {
+            console.log('Error');
             printError();
-          });
+        });
       }
 
       function bookInfo(response) {
@@ -78,8 +100,8 @@
         book_hash['publisher'] = item.volumeInfo.publisher
         book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
         printResults(book_hash)
+        }
       }
-    }
     </script>
 
   </body>
