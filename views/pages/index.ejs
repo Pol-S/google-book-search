@@ -52,19 +52,15 @@
           buttonSwap()
         }            
       }
-      module.exports = checkQuery
-
+      
       function callApi(booksearch){
         var tookTooLong = false;
         const timeLimit = 1000;
-
-
         new Promise(function(resolve, reject) {
             const timeout = setTimeout(function() {
                 tookTooLong = true;
                 reject(new Error('fetch timed out'));
-            }, timeLimit);
-            
+            }, timeLimit);            
             fetch('https://www.googleapis.com/books/v1/volumes?q=' + booksearch)
             .then(function(response) {
               if(!tookTooLong) {
@@ -76,7 +72,6 @@
               console.log('fetch failed');                
             });
         })
-
         .then(function(response) {
           return response.json();
         })
@@ -91,16 +86,16 @@
       }
 
       function bookInfo(response) {
-      for (var i = 0; i < response.items.length; i++) {
-        var item = response.items[i];
-        var book_hash = {}
-        book_hash['info'] = item.volumeInfo.infoLink
-        book_hash['title'] = item.volumeInfo.title
-        book_hash['authors'] = item.volumeInfo.authors
-        book_hash['publisher'] = item.volumeInfo.publisher
-        book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
-        printResults(book_hash)
-        }
+        for (var i = 0; i < response.items.length; i++) {
+          var item = response.items[i];
+          var book_hash = {}
+          book_hash['info'] = item.volumeInfo.infoLink
+          book_hash['title'] = item.volumeInfo.title
+          book_hash['authors'] = item.volumeInfo.authors
+          book_hash['publisher'] = item.volumeInfo.publisher
+          book_hash['cover'] = item.volumeInfo.imageLinks.thumbnail
+          printResults(book_hash)
+          }
       }
     </script>
 
